@@ -5,3 +5,5 @@ C:\Users\Propietario\source\repos\Calculator\Calculator\obj\Debug\Calculator.csp
 C:\Users\Propietario\source\repos\Calculator\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
 C:\Users\Propietario\source\repos\Calculator\Calculator\obj\Debug\Calculator.exe
 C:\Users\Propietario\source\repos\Calculator\Calculator\obj\Debug\Calculator.pdb
+C:\Users\Propietario\source\repos\Calculator\Calculator\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Propietario\source\repos\Calculator\Calculator\bin\Debug\Newtonsoft.Json.xml
