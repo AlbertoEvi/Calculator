@@ -7,12 +7,14 @@ using Calculator.Models;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using NLog;
 
 namespace Calculator
 {
     public class Mediator
     {
         public static string url = "http://localhost:51186/Calculator/";
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         #region add
 
@@ -45,7 +47,12 @@ namespace Calculator
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Add");
             request.Method = "POST";
             request.ContentType = "application/json";
-            
+
+            if (trackingId != "")         
+            {
+                request.Headers.Add("X_Evi_Tracking_Id", trackingId);
+            }
+
             using (StreamWriter dataStream = new StreamWriter(request.GetRequestStream()))
             {
                 var jason = JsonConvert.SerializeObject(addition);
@@ -97,6 +104,11 @@ namespace Calculator
             request.Method = "POST";
             request.ContentType = "application/json";
 
+            if (trackingId != "")
+            {
+                request.Headers.Add("X_Evi_Tracking_Id", trackingId);
+            }
+
             using (StreamWriter dataStream = new StreamWriter(request.GetRequestStream()))
             {
                 var jason = JsonConvert.SerializeObject(subtract);
@@ -147,6 +159,11 @@ namespace Calculator
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Multiply");
             request.Method = "POST";
             request.ContentType = "application/json";
+
+            if (trackingId != "")
+            {
+                request.Headers.Add("X_Evi_Tracking_Id", trackingId);
+            }
 
             using (StreamWriter dataStream = new StreamWriter(request.GetRequestStream()))
             {
@@ -200,6 +217,11 @@ namespace Calculator
             request.Method = "POST";
             request.ContentType = "application/json";
 
+            if (trackingId != "")
+            {
+                request.Headers.Add("X_Evi_Tracking_Id", trackingId);
+            }
+
             using (StreamWriter dataStream = new StreamWriter(request.GetRequestStream()))
             {
                 var jason = JsonConvert.SerializeObject(division);
@@ -223,38 +245,36 @@ namespace Calculator
         #region squareRoot
         
         public void Square(string trackingId)
-        {/*
+        {
             #region SquareRootStuff
 
             Console.WriteLine("-------Square Root Operation------");
             Console.WriteLine("Type the number to make the square root of it(ex: 12): ");
             
             string sqr = Console.ReadLine();
-            string[] nums = div.Split(symb);
 
-            int[] numbers = new int[nums.Length];
-            for (int i = 0; i < nums.Length; i++)
-            {
-                numbers[i] = int.Parse(nums[i].Trim());
-                Console.WriteLine(numbers[i]);
-            }
+            double sr = double.Parse(sqr);
             #endregion
 
             #region Connection
 
-            DivRequest division = new DivRequest();
-            DivResponse result = new DivResponse();
+            SquareRootRequest squareRoot = new SquareRootRequest();
+            SquareRootResponse result = new SquareRootResponse();
 
-            division.Dividend = numbers[0];
-            division.Diviser = numbers[1];
+            squareRoot.Number = sr;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Divide");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Square");
             request.Method = "POST";
             request.ContentType = "application/json";
 
+            if (trackingId != "")
+            {
+                request.Headers.Add("X_Evi_Tracking_Id", trackingId);
+            }
+
             using (StreamWriter dataStream = new StreamWriter(request.GetRequestStream()))
             {
-                var jason = JsonConvert.SerializeObject(division);
+                var jason = JsonConvert.SerializeObject(squareRoot);
                 dataStream.Write(jason);
                 dataStream.Close();
             }
@@ -263,13 +283,55 @@ namespace Calculator
             using (StreamReader stRead = new StreamReader(response.GetResponseStream()))
             {
                 Console.WriteLine("The server operation's result is:");
-                result = JsonConvert.DeserializeObject<DivResponse>(stRead.ReadToEnd());
-                Console.WriteLine(result.Quotient);
-                Console.WriteLine("The remainder of the division is:");
-                Console.WriteLine(result.Remainder);
+                result = JsonConvert.DeserializeObject<SquareRootResponse>(stRead.ReadToEnd());
+                Console.WriteLine(result.Result);
                 stRead.Close();
             }
-            #endregion*/
+            #endregion
+        }
+        #endregion
+
+        #region Journal
+        public void Journal(string trackingId)
+        {
+            logger.Info(url);
+            
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}history");
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Headers.Add("X_Evi_Tracking_Id", trackingId);
+
+            string history = "", line = "";
+            char[] sep = new char[] { '|' };
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            
+            using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+            {
+                line = sr.ReadLine();
+                if (trackingId != "")
+                {
+                    while (line != null)
+                    {
+                        line = sr.ReadLine();
+                        if (line != "* * * * History of Operations * * * *" && line != null)
+                        {
+                            string id = line.Split(sep)[2].Trim();
+                            if (id == trackingId)
+                            {
+                                history += line + "\n";
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Not Tracking Id");
+                }
+                sr.Close();
+                response.Close();
+            }
+            Console.WriteLine("* * * * History of Operations * * * *");
+            Console.WriteLine(history);
         }
         #endregion
     }

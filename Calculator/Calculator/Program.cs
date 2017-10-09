@@ -10,6 +10,7 @@ namespace Calculator
     public class Program
     {
         static Mediator med = new Mediator();
+
         #region Storing
         public static string StoringId()
         {
@@ -37,6 +38,7 @@ namespace Calculator
             return idOperation;
         }
         #endregion
+
         #region Menu
         public static string CalcMenu(string trackingId)
         {
@@ -46,6 +48,7 @@ namespace Calculator
             Console.WriteLine(" 3. Multiply");
             Console.WriteLine(" 4. Division");
             Console.WriteLine(" 5. Square root");
+            Console.WriteLine(" 6. History");
             Console.WriteLine(" Exit ");
 
             string opt = Console.ReadLine().ToLowerInvariant().Trim();
@@ -73,6 +76,10 @@ namespace Calculator
                 case "square-root":
                     med.Square(trackingId);
                     break;
+                case "6":
+                case "history":
+                    History(trackingId);
+                    break;
                 case "exit":
                     Environment.Exit(255);
                     break;
@@ -84,6 +91,22 @@ namespace Calculator
             return opt;
         }
         #endregion
+
+        #region historyJournal
+        public static void History(string trackingId)
+        {
+            if (trackingId != "")
+            {
+                med.Journal(trackingId);
+            }
+            else
+            {
+                Console.WriteLine("The trackingId it's empty");
+            }
+
+        }
+        #endregion
+
         #region ProgramCalls
         static void Main(string[] args)
         {

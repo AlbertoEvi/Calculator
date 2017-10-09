@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator.Models
 {
-    class SubtractRequest
+    public class SubtractRequest
     {
         public int[] Numbers { get; set; }
     }

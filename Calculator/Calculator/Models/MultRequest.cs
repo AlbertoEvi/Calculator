@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator.Models
 {
-    class MultRequest
+    public class MultRequest
     {
         public int[] Multipliers { get; set; }
     }

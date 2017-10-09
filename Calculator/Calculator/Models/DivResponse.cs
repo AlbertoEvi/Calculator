@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator.Models
 {
-    class DivResponse
+    public class DivResponse
     {
         public int Quotient { get; set; }
         public int Remainder { get; set; }

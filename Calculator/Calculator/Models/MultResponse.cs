@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calculator.Models
 {
-    class MultResponse
+    public class MultResponse
     {
         public int Result { get; set; }
     }

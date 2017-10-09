@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Calculator.Models
 {
-    public class DivRequest
+    public class SquareRootResponse
     {
-        public int Dividend { get; set; }
-        public int Diviser { get; set; }
+        public double Result { get; set; }
     }
 }

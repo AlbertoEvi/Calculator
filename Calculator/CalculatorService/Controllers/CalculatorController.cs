@@ -3,32 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CalculatorService;
+using CalculatorService.Facilities;
 using CalculatorService.Models;
 using Newtonsoft.Json;
+using NLog;
 
 namespace CalculatorService.Controllers
 {
     public class CalculatorController : Controller
     {
-        // GET: Calculator
+        #region getCalculator
+
         public ActionResult Index()
         {
             return View();
         }
 
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        #endregion
+
+        #region Add
+        [HttpPost]
+        [ActionName("add")]
         public string Add(AddRequest petition)
         {
             int[] nums = petition.Added;
             AddResponse result = new AddResponse();
-            result.Result = 0;
-            for (int i = 0; i < nums.Length; i++)
-            {
-                result.Result += nums[i];
-            }
-            var hasonServer = JsonConvert.SerializeObject(result);
-            return hasonServer;
+
+            logger.Trace("----- Method Add -----");
+
+            
+                result.Result = 0;
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    result.Result += nums[i];
+                }
+
+                var hasonServer = JsonConvert.SerializeObject(result);
+                return hasonServer;
+           
         }
-        
+        #endregion
+
+        #region Subtract
+        [HttpPost]
+        [ActionName("sub")]
         public string Subtract(SubtractRequest petition)
         {
             int[] nums = petition.Numbers;
@@ -43,7 +63,11 @@ namespace CalculatorService.Controllers
             var hasonServer = JsonConvert.SerializeObject(result);
             return hasonServer;
         }
+        #endregion
 
+        #region Multiply
+        [HttpPost]
+        [ActionName("mult")]
         public string Multiply(MultRequest petition)
         {
             int[] nums = petition.Multipliers;
@@ -56,7 +80,11 @@ namespace CalculatorService.Controllers
             var hasonServer = JsonConvert.SerializeObject(result);
             return hasonServer;
         }
+        #endregion
 
+        #region Divide
+        [HttpPost]
+        [ActionName("div")]
         public string Divide(DivRequest petition)
         {
             int[] nums = new int[2];
@@ -72,5 +100,43 @@ namespace CalculatorService.Controllers
             var hasonServer = JsonConvert.SerializeObject(result);
             return hasonServer;
         }
+        #endregion
+
+        #region SquareRoot
+        [HttpPost]
+        [ActionName("sqr")]
+        public string Square(SquareRootRequest petition)
+        {
+            double num = petition.Number;
+
+            SquareRootResponse result = new SquareRootResponse();
+
+            result.Result = Math.Sqrt(num);
+
+            var hasonServer = JsonConvert.SerializeObject(result);
+            return hasonServer;
+        }
+        #endregion
+
+        #region Journal
+        [HttpGet]
+        [ActionName("history")]
+        public string History()
+        {
+            string history = "";
+            try
+            {
+                string key = Request.Headers.GetValues("X_Evi_Tracking_Id").FirstOrDefault();
+                history = JournalService.GetJournal();
+                return history;
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message);
+                return e.Message;
+            }
+        }
+
+        #endregion
     }
 }
