@@ -10,6 +10,7 @@ namespace Calculator
     public class Program
     {
         static Mediator med = new Mediator();
+        public static CalculatorTest test = new CalculatorTest();
 
         #region Storing
         public static string StoringId()
@@ -101,7 +102,7 @@ namespace Calculator
             }
             else
             {
-                Console.WriteLine("The trackingId it's empty");
+                test.getHistory("http://localhost:51186/Calculator/history");
             }
 
         }

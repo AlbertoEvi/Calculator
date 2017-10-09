@@ -100,7 +100,7 @@ namespace Calculator
 
             subtract.Numbers = numbers;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Subtract");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}sub");
             request.Method = "POST";
             request.ContentType = "application/json";
 
@@ -156,7 +156,7 @@ namespace Calculator
 
             multiply.Multipliers = numbers;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Multiply");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}mult");
             request.Method = "POST";
             request.ContentType = "application/json";
 
@@ -213,7 +213,7 @@ namespace Calculator
             division.Dividend = numbers[0];
             division.Diviser = numbers[1];
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Divide");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}div");
             request.Method = "POST";
             request.ContentType = "application/json";
 
@@ -263,7 +263,7 @@ namespace Calculator
 
             squareRoot.Number = sr;
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}Square");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create($"{url}sqr");
             request.Method = "POST";
             request.ContentType = "application/json";
 
@@ -305,7 +305,7 @@ namespace Calculator
             char[] sep = new char[] { '|' };
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             
-            using (StreamReader sr = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+            using (StreamReader sr = new StreamReader(response.GetResponseStream()))
             {
                 line = sr.ReadLine();
                 if (trackingId != "")
@@ -313,7 +313,7 @@ namespace Calculator
                     while (line != null)
                     {
                         line = sr.ReadLine();
-                        if (line != "* * * * History of Operations * * * *" && line != null)
+                        if (line != "------History of Operations ------" && line != null)
                         {
                             string id = line.Split(sep)[2].Trim();
                             if (id == trackingId)
@@ -330,7 +330,7 @@ namespace Calculator
                 sr.Close();
                 response.Close();
             }
-            Console.WriteLine("* * * * History of Operations * * * *");
+            Console.WriteLine("------ History of Operations ------");
             Console.WriteLine(history);
         }
         #endregion

@@ -7,3 +7,15 @@ C:\Users\Propietario\source\repos\Calculator\Calculator\obj\Debug\Calculator.exe
 C:\Users\Propietario\source\repos\Calculator\Calculator\obj\Debug\Calculator.pdb
 C:\Users\Propietario\source\repos\Calculator\Calculator\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Propietario\source\repos\Calculator\Calculator\bin\Debug\Newtonsoft.Json.xml
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\NLog.config
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\Calculator.exe.config
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\Calculator.exe
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\Calculator.pdb
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\Newtonsoft.Json.dll
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\NLog.dll
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\Newtonsoft.Json.xml
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\bin\Debug\NLog.xml
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\obj\Debug\Calculator.exe
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\obj\Debug\Calculator.pdb
+C:\repos\calcEvi\Calculator2\Calculator\Calculator\obj\Debug\Calculator.csprojResolveAssemblyReference.cache
