@@ -8,7 +8,7 @@ namespace CalculatorService.Facilities
 {
     public class JournalService
     {
-        private const string STORE_PATH = "C:\\Users\\Propietario\\source\\repos\\Calculator\\CalculatorService\\Store.txt";
+        private const string STORE_PATH = "C:\\repos\\calcEvi\\Calcul\\Calculator\\CalculatorService\\Store.txt";
         
         public static void StoreOperation(Models.Operations op)
         {
