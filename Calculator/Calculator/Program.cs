@@ -38,17 +38,18 @@ namespace Calculator
         }
         #endregion
         #region Menu
-        public static void CalcMenu(string trackingId)
+        public static string CalcMenu(string trackingId)
         {
             Console.WriteLine("Welcome to our Calculator's Menu. Type an option to start working or \"Exit\" to finish and go out.");
             Console.WriteLine(" 1. Addition");
             Console.WriteLine(" 2. Subtraction");
             Console.WriteLine(" 3. Multiply");
             Console.WriteLine(" 4. Division");
+            Console.WriteLine(" 5. Square root");
             Console.WriteLine(" Exit ");
 
-            string opt = Console.ReadLine();
-            switch (opt.ToLowerInvariant().Trim())
+            string opt = Console.ReadLine().ToLowerInvariant().Trim();
+            switch (opt)
             {
                 case "1":
                 case "addition":
@@ -66,21 +67,28 @@ namespace Calculator
                 case "division":
                     med.Div(trackingId);
                     break;
+                case "5":
+                case "square root":
+                case "squareroot":
+                case "square-root":
+                    med.Square(trackingId);
+                    break;
                 case "exit":
                     Environment.Exit(255);
                     break;
                 default:
-                    Console.WriteLine("The command introduced is invalid. The options you can type are: addition, subtraction, multiply, division or exit");
+                    Console.WriteLine("The command introduced is invalid. The options you can type are: addition(1), subtraction(2), multiply(3), division(4) or exit(5)");
+                    CalcMenu(trackingId);
                     break;
             }
+            return opt;
         }
         #endregion
         #region ProgramCalls
         static void Main(string[] args)
         {
             string id = StoringId();
-            CalcMenu(id);
-            Thread.Sleep(5000);
+            do {} while (CalcMenu(id)!="exit");
         }
         #endregion
     }

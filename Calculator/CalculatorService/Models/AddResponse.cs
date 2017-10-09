@@ -7,6 +7,6 @@ namespace CalculatorService.Models
 {
     public class AddResponse
     {
-        public int Sum { get; set;}
+        public int Result { get; set;}
     }
 }
